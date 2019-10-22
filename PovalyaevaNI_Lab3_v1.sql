@@ -1,16 +1,16 @@
--- Поваляева Н. И., вариант 3
+-- РџРѕРІР°Р»СЏРµРІР° Рќ. Р., РІР°СЂРёР°РЅС‚ 3
 
 USE [AdventureWorks2012]
 GO
 
--- Добавьте в таблицу dbo.Address поле AddressType типа nvarchar и размерностью 50 символов:
+-- Р”РѕР±Р°РІСЊС‚Рµ РІ С‚Р°Р±Р»РёС†Сѓ dbo.Address РїРѕР»Рµ AddressType С‚РёРїР° nvarchar Рё СЂР°Р·РјРµСЂРЅРѕСЃС‚СЊСЋ 50 СЃРёРјРІРѕР»РѕРІ:
 
 ALTER TABLE [dbo].[Address] 
 	ADD [AddressType] NVARCHAR(50)
 GO
 
--- Объявите табличную переменную с такой же структурой как dbo.Address и заполните ее данными из dbo.Address. 
--- Заполните поле AddressType значениями из Person.AddressType поля Name:
+-- РћР±СЉСЏРІРёС‚Рµ С‚Р°Р±Р»РёС‡РЅСѓСЋ РїРµСЂРµРјРµРЅРЅСѓСЋ СЃ С‚Р°РєРѕР№ Р¶Рµ СЃС‚СЂСѓРєС‚СѓСЂРѕР№ РєР°Рє dbo.Address Рё Р·Р°РїРѕР»РЅРёС‚Рµ РµРµ РґР°РЅРЅС‹РјРё РёР· dbo.Address. 
+-- Р—Р°РїРѕР»РЅРёС‚Рµ РїРѕР»Рµ AddressType Р·РЅР°С‡РµРЅРёСЏРјРё РёР· Person.AddressType РїРѕР»СЏ Name:
 
 DECLARE @AddressTable TABLE (
 	[AddressID] [int] NOT NULL,
@@ -31,8 +31,8 @@ INSERT INTO @AddressTable
 	INNER JOIN [Person].[AddressType] as atype
 	ON [bea].[AddressTypeID] = [atype].[AddressTypeID])
 
--- Обновите поле AddressType в dbo.Address данными из табличной переменной. 
--- Также обновите AddressLine2, если значением в поле является NULL — обновите поле данными из AddressLine1:
+-- РћР±РЅРѕРІРёС‚Рµ РїРѕР»Рµ AddressType РІ dbo.Address РґР°РЅРЅС‹РјРё РёР· С‚Р°Р±Р»РёС‡РЅРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№. 
+-- РўР°РєР¶Рµ РѕР±РЅРѕРІРёС‚Рµ AddressLine2, РµСЃР»Рё Р·РЅР°С‡РµРЅРёРµРј РІ РїРѕР»Рµ СЏРІР»СЏРµС‚СЃСЏ NULL вЂ” РѕР±РЅРѕРІРёС‚Рµ РїРѕР»Рµ РґР°РЅРЅС‹РјРё РёР· AddressLine1:
 
 UPDATE [dbo].[Address]
 SET [AddressType] = [atable].[AddressType]
@@ -44,7 +44,7 @@ UPDATE [dbo].[Address]
 SET [AddressLine2] = [AddressLine1]
 WHERE [AddressLine2] IS NULL
 
--- Удалите данные из dbo.Address, оставив только по одной строке для каждого AddressType с максимальным AddressID:
+-- РЈРґР°Р»РёС‚Рµ РґР°РЅРЅС‹Рµ РёР· dbo.Address, РѕСЃС‚Р°РІРёРІ С‚РѕР»СЊРєРѕ РїРѕ РѕРґРЅРѕР№ СЃС‚СЂРѕРєРµ РґР»СЏ РєР°Р¶РґРѕРіРѕ AddressType СЃ РјР°РєСЃРёРјР°Р»СЊРЅС‹Рј AddressID:
 
 DELETE
 FROM [dbo].[Address]
@@ -57,9 +57,9 @@ WHERE [AddressID] NOT IN (
 	) as a
 )
 
--- Удалите поле AddressType из таблицы, удалите все созданные ограничения и значения по умолчанию;
--- Имена ограничений вы можете найти в метаданных.
--- Имена значений по умолчанию найдите самостоятельно, приведите код, которым пользовались для поиска:
+-- РЈРґР°Р»РёС‚Рµ РїРѕР»Рµ AddressType РёР· С‚Р°Р±Р»РёС†С‹, СѓРґР°Р»РёС‚Рµ РІСЃРµ СЃРѕР·РґР°РЅРЅС‹Рµ РѕРіСЂР°РЅРёС‡РµРЅРёСЏ Рё Р·РЅР°С‡РµРЅРёСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ;
+-- РРјРµРЅР° РѕРіСЂР°РЅРёС‡РµРЅРёР№ РІС‹ РјРѕР¶РµС‚Рµ РЅР°Р№С‚Рё РІ РјРµС‚Р°РґР°РЅРЅС‹С….
+-- РРјРµРЅР° Р·РЅР°С‡РµРЅРёР№ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РЅР°Р№РґРёС‚Рµ СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ, РїСЂРёРІРµРґРёС‚Рµ РєРѕРґ, РєРѕС‚РѕСЂС‹Рј РїРѕР»СЊР·РѕРІР°Р»РёСЃСЊ РґР»СЏ РїРѕРёСЃРєР°:
 
 SELECT [name]
 FROM [sys].[default_constraints]
@@ -70,7 +70,7 @@ ALTER TABLE [dbo].[Address]
 	DROP COLUMN [AddressType],
 		CONSTRAINT CHK_Address_PostalCode, DF_PostalCode
 
--- Удалите таблицу dbo.Address:
+-- РЈРґР°Р»РёС‚Рµ С‚Р°Р±Р»РёС†Сѓ dbo.Address:
 
 DROP TABLE [dbo].[Address]
 
@@ -79,17 +79,17 @@ DROP TABLE [dbo].[Address]
 USE [AdventureWorks2012]
 GO
 
--- Выполните код, созданный во втором задании второй лабораторной работы. 
--- Добавьте в таблицу dbo.Address поля CountryRegionCode NVARCHAR(3) и TaxRate SMALLMONEY. 
--- Также создайте в таблице вычисляемое поле DiffMin, считающее разницу между значением в поле TaxRate и минимальной налоговой ставкой 5.00:
+-- Р’С‹РїРѕР»РЅРёС‚Рµ РєРѕРґ, СЃРѕР·РґР°РЅРЅС‹Р№ РІРѕ РІС‚РѕСЂРѕРј Р·Р°РґР°РЅРёРё РІС‚РѕСЂРѕР№ Р»Р°Р±РѕСЂР°С‚РѕСЂРЅРѕР№ СЂР°Р±РѕС‚С‹. 
+-- Р”РѕР±Р°РІСЊС‚Рµ РІ С‚Р°Р±Р»РёС†Сѓ dbo.Address РїРѕР»СЏ CountryRegionCode NVARCHAR(3) Рё TaxRate SMALLMONEY. 
+-- РўР°РєР¶Рµ СЃРѕР·РґР°Р№С‚Рµ РІ С‚Р°Р±Р»РёС†Рµ РІС‹С‡РёСЃР»СЏРµРјРѕРµ РїРѕР»Рµ DiffMin, СЃС‡РёС‚Р°СЋС‰РµРµ СЂР°Р·РЅРёС†Сѓ РјРµР¶РґСѓ Р·РЅР°С‡РµРЅРёРµРј РІ РїРѕР»Рµ TaxRate Рё РјРёРЅРёРјР°Р»СЊРЅРѕР№ РЅР°Р»РѕРіРѕРІРѕР№ СЃС‚Р°РІРєРѕР№ 5.00:
 
 ALTER TABLE [dbo].[Address] 
 	ADD [CountryRegionCode] NVARCHAR(3), [TaxRate] SMALLMONEY,
 		[DiffMin] AS ([TaxRate] - 5.00)
 GO
 
--- Создайте временную таблицу #Address с первичным ключом по полю AddressID. 
--- Временная таблица должна включать все поля таблицы dbo.Address за исключением поля DiffMin:
+-- РЎРѕР·РґР°Р№С‚Рµ РІСЂРµРјРµРЅРЅСѓСЋ С‚Р°Р±Р»РёС†Сѓ #Address СЃ РїРµСЂРІРёС‡РЅС‹Рј РєР»СЋС‡РѕРј РїРѕ РїРѕР»СЋ AddressID. 
+-- Р’СЂРµРјРµРЅРЅР°СЏ С‚Р°Р±Р»РёС†Р° РґРѕР»Р¶РЅР° РІРєР»СЋС‡Р°С‚СЊ РІСЃРµ РїРѕР»СЏ С‚Р°Р±Р»РёС†С‹ dbo.Address Р·Р° РёСЃРєР»СЋС‡РµРЅРёРµРј РїРѕР»СЏ DiffMin:
 
 CREATE TABLE #Address (
 	[AddressID] [int] NOT NULL PRIMARY KEY,
@@ -105,11 +105,11 @@ CREATE TABLE #Address (
 
 -- DROP TABLE #Address
 
--- Заполните временную таблицу данными из dbo.Address. 
--- Поле CountryRegionCode заполните значениями из таблицы Person.StateProvince.
--- Поле TaxRate заполните значениями из таблицы Sales.SalesTaxRate. 
--- Выберите только те записи, где TaxRate > 5.
--- Выборку данных для вставки в табличную переменную осуществите в Common Table Expression (CTE):
+-- Р—Р°РїРѕР»РЅРёС‚Рµ РІСЂРµРјРµРЅРЅСѓСЋ С‚Р°Р±Р»РёС†Сѓ РґР°РЅРЅС‹РјРё РёР· dbo.Address. 
+-- РџРѕР»Рµ CountryRegionCode Р·Р°РїРѕР»РЅРёС‚Рµ Р·РЅР°С‡РµРЅРёСЏРјРё РёР· С‚Р°Р±Р»РёС†С‹ Person.StateProvince.
+-- РџРѕР»Рµ TaxRate Р·Р°РїРѕР»РЅРёС‚Рµ Р·РЅР°С‡РµРЅРёСЏРјРё РёР· С‚Р°Р±Р»РёС†С‹ Sales.SalesTaxRate. 
+-- Р’С‹Р±РµСЂРёС‚Рµ С‚РѕР»СЊРєРѕ С‚Рµ Р·Р°РїРёСЃРё, РіРґРµ TaxRate > 5.
+-- Р’С‹Р±РѕСЂРєСѓ РґР°РЅРЅС‹С… РґР»СЏ РІСЃС‚Р°РІРєРё РІ С‚Р°Р±Р»РёС‡РЅСѓСЋ РїРµСЂРµРјРµРЅРЅСѓСЋ РѕСЃСѓС‰РµСЃС‚РІРёС‚Рµ РІ Common Table Expression (CTE):
 
 WITH TaxRate_CTE([StateProvinceID], [TaxRate]) AS (
 	SELECT [StateProvinceID], [TaxRate]
@@ -127,7 +127,7 @@ INSERT INTO #Address
 	INNER JOIN TaxRate_CTE AS cte
 	ON [a].[StateProvinceID] = [cte].[StateProvinceID])
 
--- Удалите из таблицы dbo.Address одну строку (где StateProvinceID = 36):
+-- РЈРґР°Р»РёС‚Рµ РёР· С‚Р°Р±Р»РёС†С‹ dbo.Address РѕРґРЅСѓ СЃС‚СЂРѕРєСѓ (РіРґРµ StateProvinceID = 36):
 
 SET ROWCOUNT 1
 DELETE
@@ -135,11 +135,11 @@ FROM [dbo].[Address]
 WHERE [StateProvinceID] = 36;
 SET ROWCOUNT 0
 
--- Напишите merge-выражение, использующее dbo.Address как target, а временную таблицу как source. 
--- Для связи target и source используйте AddressID. 
--- Обновите поля CountryRegionCode и TaxRate, если запись присутствует в source и target. 
--- Если строка присутствует во временной таблице, но не существует в target, - добавьте строку в dbo.Address. 
--- Если в dbo.Address присутствует такая строка, которой не существует во временной таблице, - удалите строку из dbo.Address.
+-- РќР°РїРёС€РёС‚Рµ merge-РІС‹СЂР°Р¶РµРЅРёРµ, РёСЃРїРѕР»СЊР·СѓСЋС‰РµРµ dbo.Address РєР°Рє target, Р° РІСЂРµРјРµРЅРЅСѓСЋ С‚Р°Р±Р»РёС†Сѓ РєР°Рє source. 
+-- Р”Р»СЏ СЃРІСЏР·Рё target Рё source РёСЃРїРѕР»СЊР·СѓР№С‚Рµ AddressID. 
+-- РћР±РЅРѕРІРёС‚Рµ РїРѕР»СЏ CountryRegionCode Рё TaxRate, РµСЃР»Рё Р·Р°РїРёСЃСЊ РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ РІ source Рё target. 
+-- Р•СЃР»Рё СЃС‚СЂРѕРєР° РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ РІРѕ РІСЂРµРјРµРЅРЅРѕР№ С‚Р°Р±Р»РёС†Рµ, РЅРѕ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ target, - РґРѕР±Р°РІСЊС‚Рµ СЃС‚СЂРѕРєСѓ РІ dbo.Address. 
+-- Р•СЃР»Рё РІ dbo.Address РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ С‚Р°РєР°СЏ СЃС‚СЂРѕРєР°, РєРѕС‚РѕСЂРѕР№ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІРѕ РІСЂРµРјРµРЅРЅРѕР№ С‚Р°Р±Р»РёС†Рµ, - СѓРґР°Р»РёС‚Рµ СЃС‚СЂРѕРєСѓ РёР· dbo.Address.
 
 SET IDENTITY_INSERT [dbo].[Address] ON
 MERGE [dbo].[Address] AS target using #Address AS source
